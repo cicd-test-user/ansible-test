@@ -2,7 +2,6 @@
 - name: Test SSM Connection
   hosts: all
   gather_facts: true
-  connection: aws_ssm
   tasks:
     - name: Display hostname
       debug:

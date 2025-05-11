@@ -1,4 +1,4 @@
-plugin: aws_ec2
+plugin: amazon.aws.aws_ec2
 regions:
   - ap-northeast-1
 keyed_groups:
@@ -12,4 +12,5 @@ hostnames:
   - tag:Name
   - instance-id
 compose:
-  ansible_host: instance_id 
+  ansible_host: instance_id
+  ansible_connection: aws_ssm 

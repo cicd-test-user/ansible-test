@@ -30,4 +30,9 @@ hostnames:
 # - ansible_connection: SSM経由での接続を指定
 compose:
   ansible_host: instance_id
-  ansible_connection: aws_ssm 
+  ansible_connection: aws_ssm
+
+# AWS認証情報の設定
+aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+aws_security_token: "{{ lookup('env', 'AWS_SESSION_TOKEN') }}" 

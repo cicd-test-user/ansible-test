@@ -1,16 +1,26 @@
 ---
+# SSM接続テスト用のPlaybook
+# このPlaybookは、SSM経由でEC2インスタンスに接続し、
+# 基本的な操作が可能かどうかをテストします。
+
 - name: Test SSM Connection
-  hosts: all
-  gather_facts: true
+  hosts: all  # インベントリに登録されているすべてのホストに対して実行
+  gather_facts: true  # ホストの情報を収集
+
   tasks:
+    # ホスト名の表示
+    # 接続が成功したことを確認するための基本的なテスト
     - name: Display hostname
       debug:
         msg: "Connected to {{ inventory_hostname }}"
 
+    # uptimeコマンドの実行
+    # システムの稼働時間を確認し、コマンド実行が可能かテスト
     - name: Check uptime
       shell: uptime
       register: uptime_result
 
+    # uptimeコマンドの結果を表示
     - name: Display uptime
       debug:
         var: uptime_result.stdout 

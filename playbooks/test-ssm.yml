@@ -1,0 +1,17 @@
+---
+- name: Test SSM Connection
+  hosts: all
+  gather_facts: true
+  connection: aws_ssm
+  tasks:
+    - name: Display hostname
+      debug:
+        msg: "Connected to {{ inventory_hostname }}"
+
+    - name: Check uptime
+      shell: uptime
+      register: uptime_result
+
+    - name: Display uptime
+      debug:
+        var: uptime_result.stdout 

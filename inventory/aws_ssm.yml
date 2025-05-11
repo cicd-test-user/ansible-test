@@ -1,0 +1,15 @@
+plugin: aws_ec2
+regions:
+  - ap-northeast-1
+keyed_groups:
+  - key: tags.Name
+    prefix: name
+  - key: platform
+    prefix: platform
+hostnames:
+  - dns-name
+  - ip-address
+  - tag:Name
+  - instance-id
+compose:
+  ansible_host: instance_id 

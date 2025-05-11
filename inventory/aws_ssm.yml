@@ -1,38 +1,8 @@
-# AWS EC2インベントリ設定ファイル
-# このファイルは、AWS EC2インスタンスをAnsibleのインベントリとして使用するための設定です。
-# SSM経由で接続するための設定も含まれています。
-
-# AWS EC2インベントリプラグインの指定
 plugin: amazon.aws.aws_ec2
-
-# 対象のAWSリージョン
 regions:
   - ap-northeast-1
-
-# インスタンスのグループ化設定
-# タグやプラットフォーム情報に基づいてグループを作成
-keyed_groups:
-  - key: tags.Name
-    prefix: name
-  - key: platform
-    prefix: platform
-
-# ホスト名の設定
-# 以下の順序でホスト名を決定します
-hostnames:
-  - dns-name
-  - ip-address
-  - tag:Name
-  - instance-id
-
-# ホスト変数の設定
-# - ansible_host: インスタンスIDをホスト名として使用
-# - ansible_connection: SSM経由での接続を指定
+filters:
+  tag:Environment:
+    - test
 compose:
   ansible_host: instance_id
-  ansible_connection: aws_ssm
-
-# AWS認証情報の設定
-aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-aws_security_token: "{{ lookup('env', 'AWS_SESSION_TOKEN') }}" 
